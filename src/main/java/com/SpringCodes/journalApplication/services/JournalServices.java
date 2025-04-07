@@ -55,16 +55,16 @@ public class JournalServices {
         return Optional.of(journal);
     }
 
-    public void deleteJournalById(Long id,String username){
+    public void deleteJournalById(Long x_journal_id,String username){
         AppUser appUser = appUserService.findUserByName(username);
-        appUser.getJournalEntryList().removeIf(entry->entry.getId().equals(id));
-        journalRepository.deleteById(id);
+        appUser.getJournalEntryList().removeIf(entry->entry.getId().equals(x_journal_id));
+        journalRepository.deleteById(x_journal_id);
     }
 
     @Transactional
-    public ResponseEntity<JournalEntry> updateJournal(Long id, JournalEntry journalEntry) {
+    public ResponseEntity<JournalEntry> updateJournal(Long x_journal_id, JournalEntry journalEntry) {
         try {
-            Optional<JournalEntry> journalOptional = journalRepository.findById(id);
+            Optional<JournalEntry> journalOptional = journalRepository.findById(x_journal_id);
             if (journalOptional.isPresent()) {
                 JournalEntry journal = journalOptional.get();
                 journal.setTitle(journalEntry.getTitle());

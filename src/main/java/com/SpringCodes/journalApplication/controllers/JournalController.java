@@ -60,17 +60,17 @@ public class JournalController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<JournalEntry> getJournalById(@PathVariable Long id) {
-        Optional<JournalEntry> journal = journalServices.findJournalById(id);
+    @GetMapping("/get/{x_journal_id}")
+    public ResponseEntity<JournalEntry> getJournalById(@PathVariable Long x_journal_id) {
+        Optional<JournalEntry> journal = journalServices.findJournalById(x_journal_id);
         return journal.map(journalEntry -> new ResponseEntity<>(journalEntry, HttpStatus.FOUND)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/delete/{id}/{username}")
-    public ResponseEntity<?> deleteById(@PathVariable Long id,@PathVariable String username) {
+    @DeleteMapping("/delete/{x_journal_id}/{username}")
+    public ResponseEntity<?> deleteById(@PathVariable Long x_journal_id,@PathVariable String username) {
         try {
-            journalServices.findJournalById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Journal Entry Not Found"));
-            journalServices.deleteJournalById(id,username);
+            journalServices.findJournalById(x_journal_id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Journal Entry Not Found"));
+            journalServices.deleteJournalById(x_journal_id,username);
             return ResponseEntity.noContent().build();
         } catch (ResponseStatusException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -79,9 +79,9 @@ public class JournalController {
         }
     }
 
-    @PutMapping("/update/{username}/{id}")
-    public ResponseEntity<JournalEntry> updateEntry(@PathVariable Long id,@PathVariable String username, @RequestBody JournalEntry newEntry) {
-        Optional<JournalEntry> optionalOld = journalServices.findJournalById(id);
+    @PutMapping("/update/{username}/{x_journal_id}")
+    public ResponseEntity<JournalEntry> updateEntry(@PathVariable Long x_journal_id,@PathVariable String username, @RequestBody JournalEntry newEntry) {
+        Optional<JournalEntry> optionalOld = journalServices.findJournalById(x_journal_id);
         if (optionalOld.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

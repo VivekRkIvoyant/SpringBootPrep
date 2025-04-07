@@ -34,8 +34,8 @@ public class AppUserService {
     }
 
 
-    public Optional<AppUser> findUserById(Long id) {
-        AppUser user = userRepository.findById(id).orElse(null);
+    public Optional<AppUser> findUserById(Long x_user_id) {
+        AppUser user = userRepository.findById(x_user_id).orElse(null);
         if (user == null) {
             return Optional.empty();
         }
@@ -48,8 +48,8 @@ public class AppUserService {
     }
 
 
-    public ResponseEntity<AppUser> updateAppUser(Long id, AppUser user) {
-        Optional<AppUser> appUser = userRepository.findById(id);
+    public ResponseEntity<AppUser> updateAppUser(Long x_user_id, AppUser user) {
+        Optional<AppUser> appUser = userRepository.findById(x_user_id);
         if (appUser.isPresent()) {
             AppUser appUser1 = appUser.get();
             appUser1.setUserName(user.getUserName());

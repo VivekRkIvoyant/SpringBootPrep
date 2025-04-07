@@ -26,9 +26,9 @@ public class AppUsersController {
         return "User Controller working fine";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<AppUser> getUserById(@PathVariable Long id){
-        AppUser user = appUserService.findUserById(id).orElse(null);
+    @GetMapping("/{x_user_id}")
+    public ResponseEntity<AppUser> getUserById(@PathVariable Long x_user_id){
+        AppUser user = appUserService.findUserById(x_user_id).orElse(null);
         if (user==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -53,19 +53,19 @@ public class AppUsersController {
         return new ResponseEntity<>(users,HttpStatus.FOUND);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<AppUser> deleteUsers(@PathVariable Long id){
-        AppUser user = appUserService.findUserById(id).orElse(null);
+    @DeleteMapping("/{x_user_id}")
+    public ResponseEntity<AppUser> deleteUsers(@PathVariable Long x_user_id){
+        AppUser user = appUserService.findUserById(x_user_id).orElse(null);
         if(user==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        appUserService.deleteUserById(id);
+        appUserService.deleteUserById(x_user_id);
         return new ResponseEntity<>(HttpStatus.GONE);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<AppUser> updateAppUser(@PathVariable Long id,@RequestBody AppUser appUser){
-        Optional<AppUser> oldUser = appUserService.findUserById(id);
+    @PutMapping("/{x_user_id}/update")
+    public ResponseEntity<AppUser> updateAppUser(@PathVariable Long x_user_id,@RequestBody AppUser appUser){
+        Optional<AppUser> oldUser = appUserService.findUserById(x_user_id);
         if(oldUser.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -75,9 +75,9 @@ public class AppUsersController {
         return new ResponseEntity<>(old,HttpStatus.CREATED);
     }
 
-    @GetMapping("/username/{username}")
-    public ResponseEntity<AppUser> findUserByName(@PathVariable String username){
-        Optional<AppUser> user = Optional.ofNullable(appUserService.findUserByName(username));
+    @GetMapping("/username/{x_user_username}")
+    public ResponseEntity<AppUser> findUserByName(@PathVariable String x_user_username){
+        Optional<AppUser> user = Optional.ofNullable(appUserService.findUserByName(x_user_username));
         if(user.isPresent()){
             AppUser appUser = user.get();
             return new ResponseEntity<>(appUser,HttpStatus.FOUND);
